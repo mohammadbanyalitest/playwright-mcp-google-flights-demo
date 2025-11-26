@@ -1,8 +1,11 @@
 # Test artifacts
-screenshots/
-*.png
-*.jpg
-*.jpeg
+screenshots/*.png
+screenshots/*.jpg
+screenshots/*.jpeg
+screenshots/**/*.png
+screenshots/**/*.jpg
+screenshots/**/*.jpeg
+!screenshots/README.md
 test-results/
 
 # Dependencies
