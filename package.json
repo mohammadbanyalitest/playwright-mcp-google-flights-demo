@@ -1,0 +1,16 @@
+{
+  "name": "playwright-mcp-google-flights-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:data": "playwright test tests/data-driven.spec.js --headed",
+    "convert:csv": "node scripts/convert-csv-to-xlsx.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "xlsx": "^0.18.5"
+  }
+}
