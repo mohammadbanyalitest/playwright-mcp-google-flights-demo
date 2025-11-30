@@ -117,15 +117,20 @@ function generateFlightSearchDescription(data) {
   return description + prerequisites;
 }
 
+// US airports for route classification
+const US_AIRPORTS = ['JFK', 'LAX', 'SFO', 'SEA', 'ORD', 'MIA', 'DEN', 'LAS', 'BOS', 'DCA', 'ATL', 'MCO', 'DFW', 'PHX'];
+
 /**
  * Check if route is international
  */
 function isInternationalRoute(origin, destination) {
-  const usAirports = ['JFK', 'LAX', 'SFO', 'SEA', 'ORD', 'MIA', 'DEN', 'LAS', 'BOS', 'DCA', 'ATL', 'MCO', 'DFW', 'PHX'];
-  const originUS = usAirports.includes(origin);
-  const destUS = usAirports.includes(destination);
+  const originUS = US_AIRPORTS.includes(origin);
+  const destUS = US_AIRPORTS.includes(destination);
   return originUS !== destUS || (!originUS && !destUS);
 }
+
+// Threshold for considering a booking as having "many" children (affects severity)
+const MANY_CHILDREN_THRESHOLD = 2;
 
 /**
  * Determine severity for flight search tests
@@ -135,7 +140,8 @@ function getFlightSearchSeverity(data) {
   if (data.tripType === 'Round-trip' && data.adults === 1 && data.cabinClass === 'Economy') {
     return 'High';
   }
-  if (data.infants > 0 || data.children > 2) {
+  // Complex passenger configurations (infants or many children) are Medium
+  if (data.infants > 0 || data.children > MANY_CHILDREN_THRESHOLD) {
     return 'Medium';
   }
   if (data.cabinClass === 'First' || data.cabinClass === 'Business') {
@@ -462,8 +468,12 @@ function generateMultiCitySteps(data) {
  * Generate multi-city description
  */
 function generateMultiCityDescription(data) {
-  const segments = [data.segment1, data.segment2, data.segment3, data.segment4].filter(s => s && s !== 'N/A');
-  const segmentCount = segments.length + (data.segment4 && data.segment4.includes(';') ? 1 : 0);
+  // Count segments using parseSegment for consistency
+  const segments = [data.segment1, data.segment2, data.segment3, data.segment4]
+    .map(parseSegment)
+    .flat()
+    .filter(Boolean);
+  const segmentCount = segments.length;
   
   let description = `Test multi-city flight search functionality with ${segmentCount} flight segments.`;
   description += ` Verifies that the system correctly handles complex itineraries with multiple origins and destinations.`;
