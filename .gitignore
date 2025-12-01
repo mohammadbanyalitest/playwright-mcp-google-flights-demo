@@ -8,6 +8,10 @@ screenshots/**/*.jpeg
 !screenshots/README.md
 test-results/
 
+# Agent memory (exclude actual memory files but keep directory)
+agent_memory/*
+!agent_memory/.gitkeep
+
 # Dependencies
 node_modules/
 package-lock.json
@@ -42,3 +46,8 @@ temp/
 # Build output
 dist/
 build/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
