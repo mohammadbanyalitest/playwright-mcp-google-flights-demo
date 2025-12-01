@@ -8,7 +8,10 @@
     "test:headed": "playwright test --headed",
     "test:data": "playwright test tests/data-driven.spec.js --headed",
     "convert:csv": "node scripts/convert-csv-to-xlsx.js",
-    "generate:scenarios": "node scripts/generate-test-scenarios-xlsx.js"
+    "generate:scenarios": "node scripts/generate-test-scenarios-xlsx.js",
+    "update:result": "node scripts/update-test-result.js",
+    "update:result:pass": "node scripts/update-test-result.js --result Pass",
+    "update:result:fail": "node scripts/update-test-result.js --result Fail"
   },
   "devDependencies": {
     "@playwright/test": "^1.40.0",
