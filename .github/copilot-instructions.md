@@ -8,7 +8,7 @@ This is a Playwright MCP (Model Context Protocol) Google Flights Demo project th
 
 ## Agent Workflow
 
-The agent follows a strict 7-phase workflow defined in `agent/workflow.md`:
+The agent follows a strict 7-phase workflow (Phase 0 through Phase 6) defined in `agent/workflow.md`:
 - Phase 0: Intake & Intent Validation
 - Phase 1: Pre-flight Validation & Environment Setup
 - Phase 2: Plan & Data Preparation
