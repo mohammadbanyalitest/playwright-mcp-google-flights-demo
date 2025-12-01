@@ -194,7 +194,7 @@ import {
 ### Update Single Test
 
 ```javascript
-await updateTestExecution('BasicFlightSearch', 'BFS-001', {
+updateTestExecution('BasicFlightSearch', 'BFS-001', {
   executionResult: 'Pass',
   observedResults: '',
   executedBy: 'AI Agent',
@@ -206,7 +206,7 @@ await updateTestExecution('BasicFlightSearch', 'BFS-001', {
 ### Update with Options
 
 ```javascript
-const result = await updateTestExecution('BasicFlightSearch', 'BFS-001', {
+const result = updateTestExecution('BasicFlightSearch', 'BFS-001', {
   executionResult: 'Fail',
   observedResults: 'Flight search returned empty results',
   executedBy: 'Automated Test',
@@ -222,7 +222,7 @@ console.log('Update result:', result);
 ### Reset Test Execution
 
 ```javascript
-await resetTestExecution('BasicFlightSearch', 'BFS-001');
+resetTestExecution('BasicFlightSearch', 'BFS-001');
 ```
 
 ### Get Available Sheets
@@ -325,7 +325,7 @@ const updates = [
   }
 ];
 
-const result = await batchUpdateTestExecutions(updates, { createBackup: true });
+const result = batchUpdateTestExecutions(updates, { createBackup: true });
 console.log(`Updated ${result.successCount} of ${result.totalUpdates} tests`);
 ```
 
@@ -355,7 +355,7 @@ test('BFS-001: Round-trip domestic flight - Solo traveler', async ({ page }) => 
     // ...
     
     // Test passed - update Excel
-    await updateTestExecution(sheetName, testCaseId, {
+    updateTestExecution(sheetName, testCaseId, {
       executionResult: 'Pass',
       executedBy: 'Playwright Automated',
       executionDate,
@@ -364,7 +364,7 @@ test('BFS-001: Round-trip domestic flight - Solo traveler', async ({ page }) => 
     
   } catch (error) {
     // Test failed - update Excel with failure details
-    await updateTestExecution(sheetName, testCaseId, {
+    updateTestExecution(sheetName, testCaseId, {
       executionResult: 'Fail',
       observedResults: error.message,
       executedBy: 'Playwright Automated',

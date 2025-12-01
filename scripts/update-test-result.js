@@ -184,7 +184,7 @@ Batch Update JSON Format:
 /**
  * Main function
  */
-async function main() {
+function main() {
   const args = parseArgs();
   
   // Show help
@@ -253,7 +253,14 @@ async function main() {
         process.exit(1);
       }
       
-      const batchData = JSON.parse(fs.readFileSync(batchFile, 'utf-8'));
+      let batchData;
+      try {
+        batchData = JSON.parse(fs.readFileSync(batchFile, 'utf-8'));
+      } catch (parseError) {
+        console.error(`Error: Failed to parse batch file JSON: ${batchFile}`);
+        console.error(`  ${parseError.message}`);
+        process.exit(1);
+      }
       
       if (!batchData.updates || !Array.isArray(batchData.updates)) {
         console.error('Error: Batch file must contain an "updates" array');
@@ -262,7 +269,7 @@ async function main() {
       
       console.log(`Processing batch update with ${batchData.updates.length} updates...`);
       
-      const result = await batchUpdateTestExecutions(batchData.updates, batchData.options || {});
+      const result = batchUpdateTestExecutions(batchData.updates, batchData.options || {});
       
       console.log(`\nBatch update complete:`);
       console.log(`  Total updates: ${result.totalUpdates}`);
@@ -313,7 +320,7 @@ async function main() {
     if (args.reset) {
       // Reset test execution
       console.log(`Resetting test execution for ${args.testId} in ${args.sheet}...`);
-      result = await resetTestExecution(args.sheet, args.testId, { createBackup: args.backup });
+      result = resetTestExecution(args.sheet, args.testId, { createBackup: args.backup });
       console.log(`\n✅ Test execution reset successfully`);
     } else {
       // Validate result is provided
@@ -350,7 +357,7 @@ async function main() {
       }
       
       console.log(`Updating test execution for ${args.testId} in ${args.sheet}...`);
-      result = await updateTestExecution(args.sheet, args.testId, executionData, { createBackup: args.backup });
+      result = updateTestExecution(args.sheet, args.testId, executionData, { createBackup: args.backup });
       console.log(`\n✅ Test execution updated successfully`);
     }
     

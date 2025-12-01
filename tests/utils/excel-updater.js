@@ -48,10 +48,15 @@ function validateExecutionData(executionData) {
   }
 
   if (executionData.executionDate) {
-    // Validate date format (YYYY-MM-DD)
+    // Validate date format (YYYY-MM-DD) and actual date validity
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
     if (!dateRegex.test(executionData.executionDate)) {
       throw new Error(`Invalid date format: "${executionData.executionDate}". Expected format: YYYY-MM-DD`);
+    }
+    // Validate that it's a real date (not 2025-13-32)
+    const parsedDate = new Date(executionData.executionDate);
+    if (isNaN(parsedDate.getTime())) {
+      throw new Error(`Invalid date: "${executionData.executionDate}" is not a valid date`);
     }
   }
 }
@@ -62,7 +67,7 @@ function validateExecutionData(executionData) {
  * @returns {string} Path to the backup file
  */
 function createBackup(excelPath) {
-  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const timestamp = new Date().toISOString().slice(0, 19).replace(/[T:]/g, '-');
   const dir = path.dirname(excelPath);
   const ext = path.extname(excelPath);
   const base = path.basename(excelPath, ext);
@@ -124,7 +129,7 @@ function findRowByTestCaseId(data, testCaseId) {
  * @param {boolean} [options.createBackup] - Whether to create backup before updating
  * @returns {object} Result of the update operation
  */
-async function updateTestExecution(sheetName, testCaseId, executionData, options = {}) {
+function updateTestExecution(sheetName, testCaseId, executionData, options = {}) {
   const excelPath = options.excelPath || DEFAULT_EXCEL_PATH;
   
   // Validate inputs
@@ -224,7 +229,7 @@ async function updateTestExecution(sheetName, testCaseId, executionData, options
  * @param {object} [options] - Additional options
  * @returns {object} Results of all update operations
  */
-async function batchUpdateTestExecutions(updates, options = {}) {
+function batchUpdateTestExecutions(updates, options = {}) {
   const excelPath = options.excelPath || DEFAULT_EXCEL_PATH;
   
   if (!Array.isArray(updates) || updates.length === 0) {
@@ -371,7 +376,7 @@ async function batchUpdateTestExecutions(updates, options = {}) {
  * @param {object} [options] - Additional options
  * @returns {object} Result of the reset operation
  */
-async function resetTestExecution(sheetName, testCaseId, options = {}) {
+function resetTestExecution(sheetName, testCaseId, options = {}) {
   return updateTestExecution(sheetName, testCaseId, {
     executionResult: 'Not Run',
     observedResults: '',
