@@ -6,7 +6,12 @@ screenshots/**/*.png
 screenshots/**/*.jpg
 screenshots/**/*.jpeg
 !screenshots/README.md
-test-results/
+
+# Test results artifacts (large files)
+test-results/*
+!test-results/.gitkeep
+test-results/*.png
+test-results/*.trace.zip
 
 # Dependencies
 node_modules/
@@ -23,7 +28,9 @@ Thumbs.db
 *.swo
 *~
 
-# Logs
+# Logs (exclude log files but keep directory)
+logs/*
+!logs/.gitkeep
 *.log
 npm-debug.log*
 yarn-debug.log*
