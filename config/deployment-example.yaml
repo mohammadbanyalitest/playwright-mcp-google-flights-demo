@@ -1,0 +1,117 @@
+# =============================================================================
+# DEPLOYMENT CONFIGURATION EXAMPLE
+# =============================================================================
+# Copy this file to `deployment.yaml` and customize for your target application.
+# This file demonstrates how to configure the universal web automation agent
+# for a specific target website.
+# =============================================================================
+
+# Agent Configuration
+# -------------------
+# Basic identity and version information for the automation agent
+agent:
+  name: "Web Automation QA Agent"
+  version: "1.0.0"
+  description: "Universal web automation agent for QA testing"
+
+# Target Configuration
+# --------------------
+# Information about the website or application being tested
+target:
+  name: "Example Website"
+  url: "https://www.example.com"
+  domain: "custom"  # Options: travel, e-commerce, finance, custom
+  description: "Example target for demonstration purposes"
+
+# Test Data Configuration
+# -----------------------
+# Schema and location of test data files
+test_data:
+  # Schema type determines which columns are expected in the test data
+  # Options: universal, travel, e-commerce, finance, custom
+  schema: "custom"
+  
+  # Path to the primary test data file (Excel or CSV)
+  primary_file: "tests/testcases.xlsx"
+  
+  # Columns required for all tests (from universal schema)
+  required_columns:
+    - scenario_id
+    - test_name
+    - run
+  
+  # Domain-specific columns (populated based on schema type)
+  # For custom schema, define your own columns here
+  domain_columns: []
+
+# Selector Configuration
+# ----------------------
+# Strategy for locating elements on the page
+selectors:
+  # Primary selector strategy
+  # Options: aria, data-testid, css, mixed
+  strategy: "mixed"
+  
+  # Enable fallback selector chains
+  # When true, the agent will try multiple selectors if the primary fails
+  fallback_enabled: true
+  
+  # Path to the selector map file (JSON format)
+  selector_map_file: "config/selectors.json"
+
+# Artifact Configuration
+# ----------------------
+# Output locations for test artifacts
+artifacts:
+  # Directory for saving screenshots
+  screenshots_dir: "screenshots"
+  
+  # Directory for test results and reports
+  results_dir: "test-results"
+  
+  # Naming pattern for artifacts
+  # Available variables: {{scenario_id}}, {{test_name}}, {{timestamp}}, {{slug}}
+  naming_pattern: "{{scenario_id}}-{{slug}}"
+
+# Timeouts Configuration
+# ----------------------
+# Wait times for various operations (in milliseconds)
+timeouts:
+  navigation: 30000      # Page navigation timeout
+  element: 10000         # Element visibility timeout
+  network_idle: 5000     # Network idle timeout
+  action: 5000           # Action (click, type) timeout
+
+# Browser Configuration
+# ---------------------
+# Playwright browser settings
+browser:
+  # Browser type: chromium, firefox, webkit
+  type: "chromium"
+  
+  # Run in headed mode (visible browser window)
+  headed: true
+  
+  # Viewport dimensions
+  viewport:
+    width: 1280
+    height: 720
+  
+  # Slow motion delay (ms) - useful for debugging
+  slow_mo: 0
+
+# Reporting Configuration
+# -----------------------
+# Options for test result reporting
+reporting:
+  # Generate HTML report
+  html_report: true
+  
+  # Generate JSON summary
+  json_summary: true
+  
+  # Screenshot on failure
+  screenshot_on_failure: true
+  
+  # Trace on failure (for debugging)
+  trace_on_failure: false
