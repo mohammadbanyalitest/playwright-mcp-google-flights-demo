@@ -1,0 +1,236 @@
+{
+  "$comment": "Template selector map file - customize for your target application",
+  "target": "{{TARGET_NAME}}",
+  "version": "1.0.0",
+  
+  "selectors": {
+    "common": {
+      "search_input": {
+        "description": "Main search input field",
+        "primary": "[data-testid=\"search-input\"]",
+        "fallbacks": [
+          "[aria-label=\"Search\"]",
+          "input[type=\"search\"]",
+          "#search-box",
+          ".search-input"
+        ]
+      },
+      "search_button": {
+        "description": "Search submit button",
+        "primary": "[data-testid=\"search-button\"]",
+        "fallbacks": [
+          "[aria-label=\"Search\"]",
+          "button[type=\"submit\"]",
+          "text=Search",
+          ".search-btn"
+        ]
+      },
+      "results_container": {
+        "description": "Container for search results",
+        "primary": "[data-testid=\"results\"]",
+        "fallbacks": [
+          "[role=\"main\"]",
+          ".results-list",
+          "#search-results",
+          ".results-container"
+        ]
+      },
+      "navigation_menu": {
+        "description": "Main navigation menu",
+        "primary": "[data-testid=\"nav-menu\"]",
+        "fallbacks": [
+          "[role=\"navigation\"]",
+          "nav",
+          ".main-nav",
+          "#navigation"
+        ]
+      },
+      "login_button": {
+        "description": "User login button",
+        "primary": "[data-testid=\"login-btn\"]",
+        "fallbacks": [
+          "[aria-label=\"Sign in\"]",
+          "text=Sign in",
+          "text=Log in",
+          ".login-button"
+        ]
+      },
+      "user_menu": {
+        "description": "User account menu",
+        "primary": "[data-testid=\"user-menu\"]",
+        "fallbacks": [
+          "[aria-label=\"Account\"]",
+          ".user-dropdown",
+          "#user-menu"
+        ]
+      },
+      "loading_indicator": {
+        "description": "Loading/spinner indicator",
+        "primary": "[data-testid=\"loading\"]",
+        "fallbacks": [
+          "[aria-busy=\"true\"]",
+          ".loading",
+          ".spinner",
+          "[role=\"progressbar\"]"
+        ]
+      },
+      "error_message": {
+        "description": "Error message container",
+        "primary": "[data-testid=\"error\"]",
+        "fallbacks": [
+          "[role=\"alert\"]",
+          ".error-message",
+          ".alert-error",
+          "#error"
+        ]
+      },
+      "modal_dialog": {
+        "description": "Modal dialog container",
+        "primary": "[data-testid=\"modal\"]",
+        "fallbacks": [
+          "[role=\"dialog\"]",
+          ".modal",
+          ".dialog",
+          "[aria-modal=\"true\"]"
+        ]
+      },
+      "close_button": {
+        "description": "Close/dismiss button",
+        "primary": "[data-testid=\"close-btn\"]",
+        "fallbacks": [
+          "[aria-label=\"Close\"]",
+          "button:has-text(\"×\")",
+          ".close-btn",
+          ".dismiss"
+        ]
+      }
+    },
+    
+    "domain_specific": {
+      "$comment": "Add domain-specific selectors here based on your target application",
+      
+      "travel": {
+        "origin_input": {
+          "description": "Departure/origin location input",
+          "primary": "[data-testid=\"origin-input\"]",
+          "fallbacks": [
+            "[aria-label=\"From\"]",
+            "[placeholder*=\"From\"]",
+            ".origin-field"
+          ]
+        },
+        "destination_input": {
+          "description": "Arrival/destination location input",
+          "primary": "[data-testid=\"destination-input\"]",
+          "fallbacks": [
+            "[aria-label=\"To\"]",
+            "[placeholder*=\"To\"]",
+            ".destination-field"
+          ]
+        },
+        "date_picker": {
+          "description": "Date selection calendar",
+          "primary": "[data-testid=\"date-picker\"]",
+          "fallbacks": [
+            "[role=\"dialog\"][aria-label*=\"date\"]",
+            ".date-picker",
+            ".calendar"
+          ]
+        },
+        "passenger_selector": {
+          "description": "Passenger count selector",
+          "primary": "[data-testid=\"passenger-selector\"]",
+          "fallbacks": [
+            "[aria-label*=\"passenger\"]",
+            ".passenger-select",
+            "#passengers"
+          ]
+        }
+      },
+      
+      "e-commerce": {
+        "product_card": {
+          "description": "Product listing card",
+          "primary": "[data-testid=\"product-card\"]",
+          "fallbacks": [
+            ".product-item",
+            ".product-card",
+            "[itemtype*=\"Product\"]"
+          ]
+        },
+        "add_to_cart": {
+          "description": "Add to cart button",
+          "primary": "[data-testid=\"add-to-cart\"]",
+          "fallbacks": [
+            "text=Add to cart",
+            "text=Add to bag",
+            ".add-to-cart-btn"
+          ]
+        },
+        "cart_icon": {
+          "description": "Shopping cart icon/link",
+          "primary": "[data-testid=\"cart-icon\"]",
+          "fallbacks": [
+            "[aria-label=\"Cart\"]",
+            ".cart-icon",
+            "#cart"
+          ]
+        },
+        "checkout_button": {
+          "description": "Proceed to checkout button",
+          "primary": "[data-testid=\"checkout-btn\"]",
+          "fallbacks": [
+            "text=Checkout",
+            "text=Proceed to checkout",
+            ".checkout-button"
+          ]
+        }
+      },
+      
+      "finance": {
+        "account_balance": {
+          "description": "Account balance display",
+          "primary": "[data-testid=\"balance\"]",
+          "fallbacks": [
+            ".account-balance",
+            "#balance",
+            "[aria-label*=\"balance\"]"
+          ]
+        },
+        "transfer_button": {
+          "description": "Transfer funds button",
+          "primary": "[data-testid=\"transfer-btn\"]",
+          "fallbacks": [
+            "text=Transfer",
+            ".transfer-button",
+            "#transfer"
+          ]
+        },
+        "amount_input": {
+          "description": "Amount input field",
+          "primary": "[data-testid=\"amount-input\"]",
+          "fallbacks": [
+            "[aria-label=\"Amount\"]",
+            "input[type=\"number\"]",
+            ".amount-field"
+          ]
+        }
+      }
+    }
+  },
+  
+  "waits": {
+    "navigation": 30000,
+    "element": 10000,
+    "network_idle": 5000,
+    "animation": 300
+  },
+  
+  "patterns": {
+    "$comment": "Reusable selector patterns with placeholders",
+    "button_with_text": "button:has-text(\"{{text}}\")",
+    "link_with_text": "a:has-text(\"{{text}}\")",
+    "input_by_label": "[aria-label=\"{{label}}\"]",
+    "data_testid": "[data-testid=\"{{id}}\"]"
+  }
+}

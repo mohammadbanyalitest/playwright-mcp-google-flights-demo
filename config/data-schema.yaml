@@ -1,0 +1,418 @@
+# =============================================================================
+# DATA SCHEMA DEFINITIONS
+# =============================================================================
+# This file defines the column schemas for test data files across different
+# domain types. Use the appropriate schema based on your target application.
+# =============================================================================
+
+# Schema Version
+version: "1.0.0"
+
+# =============================================================================
+# UNIVERSAL SCHEMA
+# =============================================================================
+# Required columns for ALL domains. Every test data file must include these.
+
+schemas:
+  universal:
+    description: "Base schema with required columns for all test data files"
+    columns:
+      - name: scenario_id
+        type: string
+        required: true
+        unique: true
+        description: "Unique test scenario identifier (e.g., TC001, TC002)"
+        example: "TC001"
+        
+      - name: test_name
+        type: string
+        required: true
+        max_length: 200
+        description: "Human-readable test name describing the scenario"
+        example: "Verify search functionality with valid input"
+        
+      - name: run
+        type: enum
+        required: true
+        values:
+          - "yes"
+          - "no"
+        default: "yes"
+        description: "Whether to execute this test case"
+        
+      - name: expected_result
+        type: string
+        required: false
+        max_length: 500
+        description: "Expected outcome of the test"
+        example: "Search results should display matching items"
+        
+      - name: notes
+        type: string
+        required: false
+        max_length: 1000
+        description: "Additional notes or context for the test"
+        
+      - name: priority
+        type: enum
+        required: false
+        values:
+          - "critical"
+          - "high"
+          - "medium"
+          - "low"
+        default: "medium"
+        description: "Test priority level"
+        
+      - name: tags
+        type: string
+        required: false
+        description: "Comma-separated tags for categorization"
+        example: "smoke, regression, critical-path"
+
+  # ===========================================================================
+  # TRAVEL DOMAIN SCHEMA
+  # ===========================================================================
+  # Additional columns for travel applications (flights, hotels, car rentals)
+  
+  travel:
+    description: "Schema for travel booking applications"
+    extends: universal
+    columns:
+      - name: trip_type
+        type: enum
+        required: true
+        values:
+          - "one_way"
+          - "round_trip"
+          - "multi_city"
+        description: "Type of trip being booked"
+        
+      - name: origin
+        type: string
+        required: true
+        description: "Departure location (city, airport code, or address)"
+        example: "JFK"
+        
+      - name: destination
+        type: string
+        required: true
+        description: "Arrival location (city, airport code, or address)"
+        example: "LAX"
+        
+      - name: depart_date
+        type: date_or_offset
+        required: true
+        description: "Departure date (YYYY-MM-DD) or offset from today (+7d, +2w)"
+        examples:
+          - "2024-03-15"
+          - "+7d"
+          - "+2w"
+        
+      - name: return_date
+        type: date_or_offset
+        required: false
+        description: "Return date (YYYY-MM-DD) or offset from departure (+3d, +1w)"
+        condition: "Required when trip_type is round_trip"
+        
+      - name: passengers
+        type: integer
+        required: false
+        default: 1
+        min: 1
+        max: 9
+        description: "Total number of passengers"
+        
+      - name: adults
+        type: integer
+        required: false
+        default: 1
+        min: 1
+        description: "Number of adult passengers"
+        
+      - name: children
+        type: integer
+        required: false
+        default: 0
+        min: 0
+        description: "Number of child passengers"
+        
+      - name: infants
+        type: integer
+        required: false
+        default: 0
+        min: 0
+        description: "Number of infant passengers"
+        
+      - name: cabin_class
+        type: enum
+        required: false
+        values:
+          - "economy"
+          - "premium_economy"
+          - "business"
+          - "first"
+        default: "economy"
+        description: "Cabin class preference"
+        
+      - name: stops_filter
+        type: enum
+        required: false
+        values:
+          - "any"
+          - "nonstop"
+          - "1_stop"
+          - "2_plus_stops"
+        default: "any"
+        description: "Number of stops filter"
+
+  # ===========================================================================
+  # E-COMMERCE DOMAIN SCHEMA
+  # ===========================================================================
+  # Additional columns for e-commerce applications
+  
+  e-commerce:
+    description: "Schema for e-commerce/shopping applications"
+    extends: universal
+    columns:
+      - name: action_type
+        type: enum
+        required: true
+        values:
+          - "search"
+          - "browse"
+          - "add_to_cart"
+          - "remove_from_cart"
+          - "update_quantity"
+          - "checkout"
+          - "apply_coupon"
+          - "view_product"
+          - "filter"
+          - "sort"
+        description: "Type of e-commerce action to perform"
+        
+      - name: search_query
+        type: string
+        required: false
+        description: "Product search term"
+        condition: "Required when action_type is search"
+        example: "wireless headphones"
+        
+      - name: product_id
+        type: string
+        required: false
+        description: "Specific product identifier"
+        example: "SKU-12345"
+        
+      - name: product_name
+        type: string
+        required: false
+        description: "Product name for verification"
+        
+      - name: category
+        type: string
+        required: false
+        description: "Product category for browsing"
+        example: "Electronics > Audio"
+        
+      - name: quantity
+        type: integer
+        required: false
+        default: 1
+        min: 1
+        description: "Item quantity for cart operations"
+        
+      - name: coupon_code
+        type: string
+        required: false
+        description: "Coupon or promo code to apply"
+        condition: "Required when action_type is apply_coupon"
+        
+      - name: filter_name
+        type: string
+        required: false
+        description: "Filter to apply (e.g., brand, price range)"
+        condition: "Required when action_type is filter"
+        
+      - name: filter_value
+        type: string
+        required: false
+        description: "Filter value to select"
+        
+      - name: sort_by
+        type: enum
+        required: false
+        values:
+          - "relevance"
+          - "price_low_high"
+          - "price_high_low"
+          - "newest"
+          - "rating"
+          - "best_seller"
+        default: "relevance"
+        description: "Sort order for results"
+        condition: "Required when action_type is sort"
+        
+      - name: expected_price
+        type: decimal
+        required: false
+        description: "Expected product price for verification"
+
+  # ===========================================================================
+  # FINANCE DOMAIN SCHEMA
+  # ===========================================================================
+  # Additional columns for financial applications
+  
+  finance:
+    description: "Schema for financial/banking applications"
+    extends: universal
+    columns:
+      - name: action_type
+        type: enum
+        required: true
+        values:
+          - "login"
+          - "logout"
+          - "view_balance"
+          - "view_transactions"
+          - "transfer"
+          - "pay_bill"
+          - "deposit"
+          - "withdraw"
+          - "open_account"
+          - "close_account"
+        description: "Type of financial action to perform"
+        
+      - name: account_type
+        type: enum
+        required: false
+        values:
+          - "checking"
+          - "savings"
+          - "credit"
+          - "investment"
+          - "loan"
+        description: "Type of account involved"
+        
+      - name: account_number
+        type: string
+        required: false
+        description: "Account number or identifier"
+        
+      - name: amount
+        type: decimal
+        required: false
+        min: 0
+        description: "Transaction amount"
+        condition: "Required for transfer, pay_bill, deposit, withdraw actions"
+        
+      - name: currency
+        type: string
+        required: false
+        default: "USD"
+        description: "Currency code (ISO 4217)"
+        
+      - name: recipient_account
+        type: string
+        required: false
+        description: "Destination account for transfers"
+        condition: "Required when action_type is transfer"
+        
+      - name: payee_name
+        type: string
+        required: false
+        description: "Bill payee name"
+        condition: "Required when action_type is pay_bill"
+        
+      - name: transaction_date
+        type: date
+        required: false
+        description: "Scheduled transaction date"
+        
+      - name: expected_balance
+        type: decimal
+        required: false
+        description: "Expected account balance after operation"
+
+  # ===========================================================================
+  # CUSTOM DOMAIN SCHEMA
+  # ===========================================================================
+  # Template for custom applications - add your own columns
+  
+  custom:
+    description: "Customizable schema for application-specific columns"
+    extends: universal
+    columns: []
+    # Add your custom columns here following the format:
+    # - name: custom_field
+    #   type: string|integer|decimal|enum|date|boolean
+    #   required: true|false
+    #   description: "Description of the field"
+    #   example: "Example value"
+
+# =============================================================================
+# DATA TYPES REFERENCE
+# =============================================================================
+# Supported data types for column definitions
+
+data_types:
+  string:
+    description: "Text value"
+    
+  integer:
+    description: "Whole number"
+    validation: "Must be a valid integer"
+    
+  decimal:
+    description: "Decimal number for currency/amounts"
+    validation: "Must be a valid decimal (e.g., 123.45)"
+    
+  enum:
+    description: "Predefined list of allowed values"
+    validation: "Must match one of the defined values"
+    
+  date:
+    description: "Date value in YYYY-MM-DD format"
+    validation: "Must be a valid date"
+    
+  date_or_offset:
+    description: "Date value or relative offset from today"
+    formats:
+      - "YYYY-MM-DD"     # Absolute date (e.g., 2024-03-15)
+      - "+Nd"            # N days from today (e.g., +7d = 7 days from now)
+      - "+Nw"            # N weeks from today (e.g., +2w = 2 weeks from now)
+      - "+Nm"            # N months from today (e.g., +1m = 1 month from now)
+    note: "N represents a positive integer"
+    examples:
+      - "2024-03-15"
+      - "+7d"
+      - "+2w"
+      - "+1m"
+    
+  boolean:
+    description: "True/false value"
+    values:
+      - true
+      - false
+      - "yes"
+      - "no"
+
+# =============================================================================
+# VALIDATION RULES
+# =============================================================================
+
+validation:
+  # Required columns must have non-empty values
+  required_non_empty: true
+  
+  # Unique columns must not have duplicate values
+  unique_check: true
+  
+  # Enum values are case-insensitive
+  enum_case_sensitive: false
+  
+  # Dates in the past trigger warnings (not errors) by default
+  past_dates: "warn"
+  
+  # Skip rows with run=no
+  skip_disabled_validation: true
