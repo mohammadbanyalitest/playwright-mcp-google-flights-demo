@@ -376,12 +376,13 @@ data_types:
     validation: "Must be a valid date"
     
   date_or_offset:
-    description: "Date value or relative offset"
+    description: "Date value or relative offset from today"
     formats:
-      - "YYYY-MM-DD"     # Absolute date
-      - "+Nd"            # Days from today
-      - "+Nw"            # Weeks from today
-      - "+Nm"            # Months from today
+      - "YYYY-MM-DD"     # Absolute date (e.g., 2024-03-15)
+      - "+Nd"            # N days from today (e.g., +7d = 7 days from now)
+      - "+Nw"            # N weeks from today (e.g., +2w = 2 weeks from now)
+      - "+Nm"            # N months from today (e.g., +1m = 1 month from now)
+    note: "N represents a positive integer"
     examples:
       - "2024-03-15"
       - "+7d"

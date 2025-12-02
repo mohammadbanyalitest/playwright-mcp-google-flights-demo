@@ -1,5 +1,4 @@
 {
-  "$schema": "./selector-schema.json",
   "$comment": "Template selector map file - customize for your target application",
   "target": "{{TARGET_NAME}}",
   "version": "1.0.0",
