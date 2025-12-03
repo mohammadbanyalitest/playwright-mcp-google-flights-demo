@@ -13,12 +13,12 @@ from typing import List, Dict, Any
 @dataclass
 class AgentConfig:
     # Basic identity
-    name: str = "Playwright MCP Copilot"
+    name: str = "Universal Web Testing Agent"
     description: str = (
-        "An expert Playwright + MCP coding and testing assistant focused on Excel-driven "
-        "data-driven tests and interactive exploratory testing for Google Flights. "
-        "Provides reproducible Playwright tests, reads/writes testcases.xlsx, captures screenshots "
-        "and produces structured test-results."
+        "An expert Playwright + MCP coding and testing assistant for ANY web application. "
+        "Provides Excel-driven data-driven tests and interactive exploratory testing. "
+        "Adapts to any website configured in config/deployment.yaml. "
+        "Reads/writes testcases.xlsx, captures screenshots, and produces structured test-results."
     )
 
     # Model and latency / creativity control
@@ -91,9 +91,10 @@ class AgentConfig:
     # Runtime constraints and helpful defaults
     runtime: Dict[str, Any] = field(default_factory=lambda: {
         "headed_by_default": True,   # use headed Playwright runs during development
+        "config_file": "config/deployment.yaml",  # read target website and settings
         "default_screenshots_dir": "screenshots",
         "default_results_dir": "test-results",
-        "xlsx_testcases_path": "tests/testcases.xlsx",
+        "xlsx_testcases_path": "test-scenarios/flight-test-scenarios.xlsx",  # configurable per deployment
         "xlsx_results_sheet": "Results"  # if writing back to XLSX
     })
 

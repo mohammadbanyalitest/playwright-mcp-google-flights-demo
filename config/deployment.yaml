@@ -1,0 +1,141 @@
+# =============================================================================
+# TARGET WEBSITE CONFIGURATION
+# =============================================================================
+# Configure this file to test any website with Playwright MCP
+# The Excel test scenarios format remains the same regardless of the target
+# =============================================================================
+
+# Agent Configuration
+# -------------------
+agent:
+  name: "Universal Web Testing Agent"
+  version: "2.0.0"
+  description: "AI-powered web testing agent for any website using Playwright MCP"
+
+# Target Website Configuration
+# -----------------------------
+# CHANGE THESE VALUES to test your target website
+target:
+  name: "Google Flights"
+  url: "https://www.google.com/travel/flights?gl=SA&hl=en"
+  domain: "travel"  # Options: travel, e-commerce, finance, custom
+  description: "Google's flight search and booking comparison service"
+
+# Test Data Configuration
+# -----------------------
+test_data:
+  # Schema type determines which columns are used from your Excel file
+  # Options: universal, travel, e-commerce, finance, custom
+  schema: "travel"
+
+  # Path to your Excel test scenarios file
+  primary_file: "test-scenarios/flight-test-scenarios.xlsx"
+
+  # Sheet name in the Excel file (default: Sheet1)
+  sheet_name: "Sheet1"
+
+  # Universal columns (required in ALL scenarios)
+  required_columns:
+    - test_case_id
+    - test_case_area
+    - test_case_name
+    - test_case_description
+    - steps_to_reproduce
+    - run
+    - expected_results
+    - execution_result
+    - observed_results
+    - test_case_severity
+    - executed_by
+    - execution_date
+    - created_by
+    - comments
+
+  # Domain-specific columns (based on schema type selected above)
+  # These are automatically loaded from data-schema.yaml
+
+# Selector Configuration
+# ----------------------
+selectors:
+  # Primary strategy for finding elements
+  # Options: aria, data-testid, css, mixed (tries multiple strategies)
+  strategy: "mixed"
+
+  # Enable fallback selector chains (recommended)
+  fallback_enabled: true
+
+  # Path to custom selector mappings (optional)
+  selector_map_file: "config/selectors.json"
+
+# Artifact Configuration
+# ----------------------
+artifacts:
+  # Directory for saving screenshots
+  screenshots_dir: "screenshots"
+
+  # Directory for test results and reports
+  results_dir: "test-results"
+
+  # Naming pattern for artifacts
+  # Available placeholders: {{scenario_id}}, {{test_name}}, {{timestamp}}
+  naming_pattern: "{{scenario_id}}-{{timestamp}}"
+
+# Browser Configuration
+# ---------------------
+browser:
+  # Browser type: chromium, firefox, webkit
+  type: "chromium"
+
+  # Run in headed mode (show browser window)
+  headed: true
+
+  # Viewport size
+  viewport:
+    width: 1280
+    height: 720
+
+  # Slow motion (ms) - useful for debugging
+  slow_mo: 0
+
+# Timeout Configuration (milliseconds)
+# ------------------------------------
+timeouts:
+  navigation: 30000      # Page load timeout
+  element: 10000         # Element visibility timeout
+  network_idle: 5000     # Wait for network to be idle
+  action: 5000           # Click, type, etc. timeout
+
+# Reporting Configuration
+# -----------------------
+reporting:
+  html_report: true
+  json_summary: true
+  screenshot_on_failure: true
+  trace_on_failure: false
+
+# =============================================================================
+# QUICK START: How to Test a Different Website
+# =============================================================================
+#
+# 1. Update the 'target' section above with your website details
+# 2. Choose appropriate 'schema' type (travel, e-commerce, finance, or custom)
+# 3. Keep your Excel file format the same - just update the data
+# 4. Run the tests using the @playwright-tester agent in VS Code
+#
+# Example for E-Commerce:
+#   target:
+#     name: "My Online Store"
+#     url: "https://store.example.com"
+#     domain: "e-commerce"
+#   test_data:
+#     schema: "e-commerce"
+#
+# Example for Custom Website:
+#   target:
+#     name: "My Custom App"
+#     url: "https://app.example.com"
+#     domain: "custom"
+#   test_data:
+#     schema: "custom"
+#
+# =============================================================================

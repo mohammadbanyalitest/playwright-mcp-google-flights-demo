@@ -17,58 +17,130 @@ schemas:
   universal:
     description: "Base schema with required columns for all test data files"
     columns:
-      - name: scenario_id
+      - name: test_case_id
         type: string
         required: true
         unique: true
-        description: "Unique test scenario identifier (e.g., TC001, TC002)"
+        description: "Unique test case identifier"
         example: "TC001"
-        
-      - name: test_name
+        excel_column: "Test Case ID*"
+
+      - name: test_case_area
         type: string
         required: true
         max_length: 200
-        description: "Human-readable test name describing the scenario"
-        example: "Verify search functionality with valid input"
-        
+        description: "Area/module being tested"
+        example: "Search Functionality"
+        excel_column: "Test Case Area*"
+
+      - name: test_case_name
+        type: string
+        required: true
+        max_length: 200
+        description: "Name of the test case"
+        example: "Verify search with valid input"
+        excel_column: "Test Case Name*"
+
+      - name: test_case_description
+        type: string
+        required: true
+        max_length: 1000
+        description: "Detailed description of what is being tested"
+        example: "Verify that search functionality returns relevant results when user enters valid search query"
+        excel_column: "Test Case Description*"
+
+      - name: steps_to_reproduce
+        type: string
+        required: true
+        max_length: 2000
+        description: "Step-by-step instructions to execute the test"
+        example: "1. Navigate to homepage\n2. Enter search term\n3. Click search button\n4. Verify results"
+        excel_column: "Steps To Reproduce*"
+
       - name: run
         type: enum
         required: true
         values:
           - "yes"
           - "no"
+          - "Yes"
+          - "No"
         default: "yes"
         description: "Whether to execute this test case"
-        
-      - name: expected_result
+        excel_column: "Run*"
+
+      - name: expected_results
         type: string
-        required: false
-        max_length: 500
-        description: "Expected outcome of the test"
-        example: "Search results should display matching items"
-        
-      - name: notes
-        type: string
-        required: false
+        required: true
         max_length: 1000
-        description: "Additional notes or context for the test"
-        
-      - name: priority
+        description: "Expected outcome of the test"
+        example: "Search results page displays with relevant items matching the search query"
+        excel_column: "Expected Results*"
+
+      - name: execution_result
         type: enum
-        required: false
+        required: true
         values:
-          - "critical"
-          - "high"
-          - "medium"
-          - "low"
-        default: "medium"
-        description: "Test priority level"
-        
-      - name: tags
+          - "Pass"
+          - "Fail"
+          - "Not Executed"
+          - "Blocked"
+          - "In Progress"
+          - ""
+        default: ""
+        description: "Result of test execution"
+        excel_column: "Execution Result*"
+
+      - name: observed_results
         type: string
         required: false
-        description: "Comma-separated tags for categorization"
-        example: "smoke, regression, critical-path"
+        max_length: 2000
+        description: "Actual results observed during execution (required if execution failed)"
+        example: "Error message displayed: 'Connection timeout'"
+        excel_column: "Observed Results (In case of failure)*"
+
+      - name: test_case_severity
+        type: enum
+        required: true
+        values:
+          - "Critical"
+          - "High"
+          - "Medium"
+          - "Low"
+        default: "Medium"
+        description: "Severity/priority of the test case"
+        excel_column: "Test Case Severity*"
+
+      - name: executed_by
+        type: string
+        required: true
+        max_length: 100
+        description: "Name of person/agent executing the test"
+        example: "John Doe"
+        excel_column: "Executed By*"
+
+      - name: execution_date
+        type: date
+        required: true
+        description: "Date when test was executed (YYYY-MM-DD format)"
+        example: "2024-03-15"
+        excel_column: "Execution Date*"
+
+      - name: created_by
+        type: string
+        required: true
+        max_length: 100
+        description: "Name of person who created the test case"
+        example: "Jane Smith"
+        excel_column: "Created By*"
+
+      - name: comments
+        type: string
+        required: false
+        max_length: 2000
+        description: "Additional comments or notes about the test"
+        example: "Test may fail in IE11 due to browser limitations"
+        excel_column: "Comments*"
 
   # ===========================================================================
   # TRAVEL DOMAIN SCHEMA
