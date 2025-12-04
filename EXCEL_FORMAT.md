@@ -238,7 +238,7 @@ The agent will:
    - Take screenshots at key points
 
 5. **Update Excel Results**
-   - **Executed By*** = "Turki AI" (automatically set)
+   - **Executed By*** = "Turki Web Automation Agent" (automatically set)
    - **Execution Date*** = Current date (YYYY-MM-DD format)
    - **Execution Result*** = "Pass" or "Fail" based on outcome
    - **Observed Results (In case of failure)*** = Detailed description if test failed

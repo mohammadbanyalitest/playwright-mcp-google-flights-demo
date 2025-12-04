@@ -1,6 +1,6 @@
 # 🤖 Test Execution Workflow
 
-> **How the Turki AI agent executes your Excel test cases**
+> **How the Turki Web Automation Agent agent executes your Excel test cases**
 
 ---
 
@@ -122,7 +122,7 @@ At key points:
 
 | Column | Value | Notes |
 |--------|-------|-------|
-| **Executed By*** | Turki AI | ALWAYS set to "Turki AI" |
+| **Executed By*** | Turki Web Automation Agent | ALWAYS set to "Turki Web Automation Agent" |
 | **Execution Date*** | 2024-12-04 | Current date (YYYY-MM-DD) |
 | **Execution Result*** | Pass or Fail | Based on test outcome |
 | **Observed Results (In case of failure)*** | Detailed description | Only if test failed |
@@ -130,7 +130,7 @@ At key points:
 
 **Example - Passing Test:**
 ```
-Executed By*: Turki AI
+Executed By*: Turki Web Automation Agent
 Execution Date*: 2024-12-04
 Execution Result*: Pass
 Observed Results*: (blank)
@@ -139,7 +139,7 @@ Comments*: Test executed successfully. Search results displayed 50+ laptop produ
 
 **Example - Failing Test:**
 ```
-Executed By*: Turki AI
+Executed By*: Turki Web Automation Agent
 Execution Date*: 2024-12-04
 Execution Result*: Fail
 Observed Results*: Error message "No results found" displayed instead of product listings
@@ -156,7 +156,7 @@ After all test cases execute, the agent provides:
 ## Test Execution Summary
 
 **Execution Date:** 2024-12-04
-**Executed By:** Turki AI
+**Executed By:** Turki Web Automation Agent
 **Total Test Cases:** 10
 **Executed:** 8 (Run* = yes)
 **Skipped:** 2 (Run* = no)
@@ -206,7 +206,7 @@ After all test cases execute, the agent provides:
 ### ✅ DO:
 - Execute ONLY test cases where **Run* = "yes"**
 - Follow "Steps To Reproduce*" exactly as written
-- Set "Executed By*" to "Turki AI" for all executions
+- Set "Executed By*" to "Turki Web Automation Agent" for all executions
 - Use current date (YYYY-MM-DD) for "Execution Date*"
 - Fill "Observed Results*" with detailed description for failures
 - Take screenshots at key points
@@ -237,8 +237,8 @@ After all test cases execute, the agent provides:
 
 | Test Case ID* | Test Case Name* | Steps To Reproduce* | Run* | Expected Results* | Execution Result* | Executed By* | Execution Date* | Observed Results* |
 |---------------|-----------------|---------------------|------|-------------------|-------------------|--------------|-----------------|-------------------|
-| TC001 | Search laptops | 1. Enter 'laptop'\n2. Click search | yes | Results display | Pass | Turki AI | 2024-12-04 | Search returned 50+ laptop products |
-| TC002 | Add to cart | 1. Click product\n2. Click Add to Cart | yes | Item in cart | Pass | Turki AI | 2024-12-04 | Item successfully added to cart |
+| TC001 | Search laptops | 1. Enter 'laptop'\n2. Click search | yes | Results display | Pass | Turki Web Automation Agent | 2024-12-04 | Search returned 50+ laptop products |
+| TC002 | Add to cart | 1. Click product\n2. Click Add to Cart | yes | Item in cart | Pass | Turki Web Automation Agent | 2024-12-04 | Item successfully added to cart |
 | TC003 | View history | 1. Click Order History | no | History loads | (blank) | (blank) | (blank) | (blank - not executed) |
 
 **Notice:** TC003 was NOT executed because Run* = "no"
@@ -288,7 +288,7 @@ Check:
 **Check:** Is Run* = "yes"? (Case-sensitive: "Yes" ≠ "yes")
 
 ### Wrong "Executed By" value?
-**Check:** Agent should ALWAYS set "Executed By*" = "Turki AI"
+**Check:** Agent should ALWAYS set "Executed By*" = "Turki Web Automation Agent"
 
 ### Date format incorrect?
 **Check:** Should be YYYY-MM-DD (e.g., 2024-12-04, not 12/04/2024)

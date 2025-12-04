@@ -189,7 +189,7 @@ marked with run=yes. Document the results.
    - Takes screenshots during execution
    - Compares results to "Expected Results*"
 5. **Updates Excel fields:**
-   - **Executed By*** = "Turki AI" (automatic)
+   - **Executed By*** = "Turki Web Automation Agent" (automatic)
    - **Execution Date*** = Current date (YYYY-MM-DD)
    - **Execution Result*** = "Pass" or "Fail"
    - **Observed Results*** = Details if test failed

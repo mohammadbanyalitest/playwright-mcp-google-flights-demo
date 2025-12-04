@@ -13,9 +13,9 @@ from typing import List, Dict, Any
 @dataclass
 class AgentConfig:
     # Basic identity
-    name: str = "Universal Web Testing Agent"
+    name: str = "Turki Web Automation Agent"
     description: str = (
-        "An expert Playwright + MCP coding and testing assistant for ANY web application. "
+        "Turki Web Automation Agent - An expert Playwright + MCP coding and testing assistant for ANY web application. "
         "Provides Excel-driven data-driven tests and interactive exploratory testing. "
         "Adapts to any website configured in config/deployment.yaml. "
         "Reads/writes testcases.xlsx, captures screenshots, and produces structured test-results."

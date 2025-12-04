@@ -8,9 +8,9 @@
 # Agent Configuration
 # -------------------
 agent:
-  name: "Universal Web Testing Agent"
+  name: "Turki Web Automation Agent"
   version: "2.0.0"
-  description: "AI-powered web testing agent for any website using Playwright MCP"
+  description: "Turki - AI-powered web testing agent for any website using Playwright MCP"
 
 # Target Website Configuration
 # -----------------------------

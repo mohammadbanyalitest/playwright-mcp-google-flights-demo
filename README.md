@@ -279,7 +279,7 @@ For a complete demo script, see [docs/demo-script.md](docs/demo-script.md).
 
 ### Quick Start Guides
 - [🚀 QUICKSTART](QUICKSTART.md) - Get started in 5 minutes
-- [🤖 EXECUTION WORKFLOW](EXECUTION_WORKFLOW.md) - How Turki AI executes tests
+- [🤖 EXECUTION WORKFLOW](EXECUTION_WORKFLOW.md) - How Turki Web Automation Agent executes tests
 - [📊 EXCEL FORMAT](EXCEL_FORMAT.md) - Complete Excel format reference
 
 ### Comprehensive Guides
