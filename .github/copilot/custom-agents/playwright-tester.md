@@ -74,39 +74,60 @@ Think like a user, but test like a professional:
 
 ## Testing Workflow
 
-### Step 1: Understand the Request
+### Step 1: Read Configuration and Excel File
 
-Before testing, clarify:
-- What specific functionality needs testing?
-- What are the expected behaviors?
-- Are there specific edge cases to focus on?
+**CRITICAL FIRST STEPS:**
+1. Read `config/deployment.yaml` to get:
+   - Target website URL and domain
+   - Excel test file path
+   - Schema type
+2. Read the Excel file specified in the config
+3. Parse all test cases from the Excel file
 
-### Step 2: Navigate and Explore
+### Step 2: Filter Test Cases for Execution
 
-```
-1. Navigate to the target URL
-2. Take a snapshot to understand the current page
-3. Identify key elements and interactions
-4. Plan your testing approach
-```
+**IMPORTANT:** Only execute test cases where **Run* = "yes"**
+- Scan the "Run*" column in the Excel file
+- Skip any rows where Run* = "no" or is blank
+- Create a list of test cases to execute
 
-### Step 3: Execute Tests
+### Step 3: Execute Each Test Case
 
-For each test scenario:
-- Document the starting state
-- Perform the action
-- Capture the result (screenshot/snapshot)
-- Compare to expected behavior
-- Note any issues or observations
+For each test case where **Run* = "yes"**:
+
+1. **Read the test case details:**
+   - Test Case ID*
+   - Test Case Name*
+   - Test Case Description*
+   - Steps To Reproduce*
+   - Expected Results*
+   - Domain-specific columns (origin, destination, search_query, etc.)
+
+2. **Follow Steps To Reproduce EXACTLY:**
+   - Parse the "Steps To Reproduce*" column
+   - Execute each step in order
+   - Navigate, click, type, select as specified
+   - Take screenshots at key points
+
+3. **Verify Results:**
+   - Compare actual behavior to "Expected Results*"
+   - Determine Pass/Fail status
+
+4. **Update Excel Fields:**
+   - **Executed By*** = "Turki AI" (ALWAYS)
+   - **Execution Date*** = Current date (YYYY-MM-DD format)
+   - **Execution Result*** = "Pass" or "Fail"
+   - **Observed Results (In case of failure)*** = Detailed description if test failed
+   - **Comments*** = Add any additional observations
 
 ### Step 4: Report Findings
 
-Provide a clear summary including:
-- Test cases executed
-- Pass/Fail status for each
-- Screenshots of important states
-- Issues discovered with reproduction steps
-- Recommendations for improvements
+After all executions, provide:
+- Summary of all test cases executed
+- Pass/Fail counts
+- Screenshots of key states
+- List of all failures with details
+- Updated Excel data to write back
 
 ## Domain-Specific Testing Guidance
 

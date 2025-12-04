@@ -178,6 +178,24 @@ Ask the agent to run your test scenarios:
 marked with run=yes. Document the results.
 ```
 
+**How the Agent Executes Tests:**
+
+1. **Reads Configuration** (`config/deployment.yaml`) to find Excel file path
+2. **Opens Excel file** and parses all test cases
+3. **Filters by "Run*" column** - Only executes rows where Run* = "yes"
+4. **For each test case:**
+   - Reads "Steps To Reproduce*" and follows each step exactly
+   - Uses domain-specific columns (origin, destination, search_query, etc.)
+   - Takes screenshots during execution
+   - Compares results to "Expected Results*"
+5. **Updates Excel fields:**
+   - **Executed By*** = "Turki AI" (automatic)
+   - **Execution Date*** = Current date (YYYY-MM-DD)
+   - **Execution Result*** = "Pass" or "Fail"
+   - **Observed Results*** = Details if test failed
+   - **Comments*** = Additional observations
+6. **Generates report** with summary, screenshots, and failure details
+
 ### 3. Specific Test Cases
 
 Target specific scenarios:

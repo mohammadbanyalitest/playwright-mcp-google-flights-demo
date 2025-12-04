@@ -215,13 +215,40 @@ Once your Excel file is ready:
 @playwright-tester Read the deployment config and execute all test scenarios from the Excel file
 ```
 
+### Execution Workflow
+
 The agent will:
-- Read your Excel file
-- Filter rows where Run* = "yes"
-- Execute each test case
-- Update Execution Result*
-- Fill in Observed Results* for failures
-- Update Execution Date*
+
+1. **Read Configuration**
+   - Read `config/deployment.yaml` to get Excel file path
+   - Identify target website URL and domain type
+
+2. **Load Test Cases**
+   - Read the Excel file from the configured path
+   - Parse all rows with test case data
+
+3. **Filter for Execution**
+   - **Check "Run*" column** - Only execute rows where Run* = "yes"
+   - Skip rows where Run* = "no" or blank
+
+4. **Execute Each Test Case**
+   - **Read "Steps To Reproduce*"** column
+   - **Follow each step exactly** as written
+   - Navigate to pages, fill forms, click buttons, verify elements
+   - Take screenshots at key points
+
+5. **Update Excel Results**
+   - **Executed By*** = "Turki AI" (automatically set)
+   - **Execution Date*** = Current date (YYYY-MM-DD format)
+   - **Execution Result*** = "Pass" or "Fail" based on outcome
+   - **Observed Results (In case of failure)*** = Detailed description if test failed
+   - **Comments*** = Additional observations or notes
+
+6. **Generate Report**
+   - Summary of all executed test cases
+   - Pass/Fail counts
+   - Screenshots and evidence
+   - List of failures with reproduction steps
 
 ---
 

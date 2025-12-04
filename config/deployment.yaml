@@ -16,20 +16,19 @@ agent:
 # -----------------------------
 # CHANGE THESE VALUES to test your target website
 target:
-  name: "Google Flights"
-  url: "https://www.google.com/travel/flights?gl=SA&hl=en"
-  domain: "travel"  # Options: travel, e-commerce, finance, custom
-  description: "Google's flight search and booking comparison service"
-
+  name: "Amazon"
+  url: "https://www.amazon.com"
+  domain: "e-commerce"
+  description: "Amazon online shopping platform"
 # Test Data Configuration
 # -----------------------
 test_data:
   # Schema type determines which columns are used from your Excel file
   # Options: universal, travel, e-commerce, finance, custom
-  schema: "travel"
+  schema: "e-commerce"
 
   # Path to your Excel test scenarios file
-  primary_file: "test-scenarios/flight-test-scenarios.xlsx"
+  primary_file: "test-scenarios/amazon-tests.xlsx"
 
   # Sheet name in the Excel file (default: Sheet1)
   sheet_name: "Sheet1"
